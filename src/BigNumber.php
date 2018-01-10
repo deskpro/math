@@ -104,19 +104,25 @@ abstract class BigNumber
      *
      * @internal
      *
-     * @param mixed ...$args The arguments to the constructor.
-     *
      * @return static
      */
-    protected static function create(... $args)
+    protected static function create()
     {
-        return new static(... $args);
+        $reflect  = new \ReflectionClass(static::class);
+        $obj = $reflect->newInstanceWithoutConstructor();
+
+        $constructor = $reflect->getConstructor();
+        $constructor->setAccessible(true);
+        $constructor->invokeArgs($obj, func_get_args());
+        $constructor->setAccessible(false);
+
+        return $obj;
     }
 
     /**
      * Returns the minimum of the given values.
      *
-     * @param BigNumber|number|string ...$values The numbers to compare. All the numbers need to be convertible
+     * @param BigNumber|number|string            The numbers to compare. All the numbers need to be convertible
      *                                           to an instance of the class this method is called on.
      *
      * @return static The minimum value.
@@ -124,11 +130,11 @@ abstract class BigNumber
      * @throws \InvalidArgumentException If no values are given.
      * @throws ArithmeticException       If an argument is not valid.
      */
-    public static function min(...$values)
+    public static function min()
     {
         $min = null;
 
-        foreach ($values as $value) {
+        foreach (func_get_args() as $value) {
             $value = static::of($value);
 
             if ($min === null || $value->isLessThan($min)) {
@@ -146,7 +152,7 @@ abstract class BigNumber
     /**
      * Returns the maximum of the given values.
      *
-     * @param BigNumber|number|string ...$values The numbers to compare. All the numbers need to be convertible
+     * @param BigNumber|number|string            The numbers to compare. All the numbers need to be convertible
      *                                           to an instance of the class this method is called on.
      *
      * @return static The maximum value.
@@ -154,11 +160,11 @@ abstract class BigNumber
      * @throws \InvalidArgumentException If no values are given.
      * @throws ArithmeticException       If an argument is not valid.
      */
-    public static function max(...$values)
+    public static function max()
     {
         $max = null;
 
-        foreach ($values as $value) {
+        foreach (func_get_args() as $value) {
             $value = static::of($value);
 
             if ($max === null || $value->isGreaterThan($max)) {

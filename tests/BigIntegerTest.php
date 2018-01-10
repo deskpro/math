@@ -371,7 +371,7 @@ class BigIntegerTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigIntegerEquals($min, BigInteger::min(... $values));
+        $this->assertBigIntegerEquals($min, call_user_func_array('\Brick\Math\BigInteger::min', $values));
     }
 
     /**
@@ -414,7 +414,7 @@ class BigIntegerTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigIntegerEquals($max, BigInteger::max(... $values));
+        $this->assertBigIntegerEquals($max, call_user_func_array('\Brick\Math\BigInteger::max', $values));
     }
 
     /**

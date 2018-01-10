@@ -276,7 +276,7 @@ class BigDecimalTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigDecimalEquals($min, BigDecimal::min(... $values));
+        $this->assertBigDecimalEquals($min, call_user_func_array('\Brick\Math\BigDecimal::min', $values));
     }
 
     /**
@@ -324,7 +324,7 @@ class BigDecimalTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigDecimalEquals($max, BigDecimal::max(... $values));
+        $this->assertBigDecimalEquals($max, call_user_func_array('\Brick\Math\BigDecimal::max', $values));
     }
 
     /**

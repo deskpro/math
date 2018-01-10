@@ -147,7 +147,7 @@ class BigRationalTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigRationalEquals($min, BigRational::min(... $values));
+        $this->assertBigRationalEquals($min, call_user_func_array('\Brick\Math\BigRational::min', $values));
     }
 
     /**
@@ -179,7 +179,7 @@ class BigRationalTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigRationalEquals($max, BigRational::max(... $values));
+        $this->assertBigRationalEquals($max, call_user_func_array('\Brick\Math\BigRational::max', $values));
     }
 
     /**
